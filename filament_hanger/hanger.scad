@@ -37,7 +37,7 @@ union()
             translate([0, 0, -CLEARANCE]) union()
             {
                 cylinder(h=2 + CLEARANCE, d=20.4);
-                translate([0, 0, 2 + CLEARANCE]) cylinder(h=7, d=22.5);
+                translate([0, 0, 2 + CLEARANCE]) cylinder(h=7, d=23);
                 translate([0, 0, 9 + CLEARANCE]) cylinder(h=2 + CLEARANCE, d=20.4);
             }
         }
