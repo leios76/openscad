@@ -1,6 +1,13 @@
 $fn=64;
 
-CLEARANCE=0.1;
+BODY_X1=24;
+BODY_X2=30;
+BODY_Y=154;
+BODY_Z=11;
+UPPER_HOLE=16.5;
+
+BEARING_D=22.7;
+BEARING_H=7;
 
 module smooth(r=1)
 {
@@ -15,30 +22,37 @@ union()
     difference()
     {
 
-        linear_extrude(height=11) smooth(r=2) union()
+        linear_extrude(height=BODY_Z) smooth(r=2) union()
         {
             hull()
             {
-                translate([0, 124 - 24/2, 0]) circle(d=24);
-                translate([0, 24/2, 0]) circle(d=24);
+                translate([0, BODY_Y - BODY_X2 - BODY_X1/2, 0]) circle(d=BODY_X1);
+                translate([0, BODY_X1/2, 0]) circle(d=BODY_X1);
                 
             }
-            polygon([[12, 124 - 24/2], [12, 124 - 5], [15, 124], [15, 154], [-15, 154], [-15, 124], [-12, 124 - 5], [-12, 124 - 24/2]]);
+            polygon([[BODY_X1/2, BODY_Y - BODY_X2 - BODY_X1/2], 
+            [BODY_X1/2, BODY_Y - BODY_X2 - 5], 
+            [BODY_X2/2, BODY_Y - BODY_X2], 
+            [BODY_X2/2, BODY_Y], 
+            [-BODY_X2/2, BODY_Y], 
+            [-BODY_X2/2, BODY_Y-BODY_X2], 
+            [-BODY_X1/2, BODY_Y-BODY_X2 - 5], 
+            [-BODY_X1/2, BODY_Y-BODY_X2 - BODY_X1/2]]);
         }
 
-        translate([0, 24/2, -CLEARANCE]) linear_extrude(height=11 + CLEARANCE * 2) hull()
+        translate([0, BODY_X1/2, 0]) linear_extrude(height=BODY_Z) hull()
         {
-            translate([0, 5, 0]) circle(d=16.5);
-            circle(d=16.5);
+            translate([0, 5, 0]) circle(d=UPPER_HOLE);
+            circle(d=UPPER_HOLE);
         }
 
         translate([0, 139, 0]) 
         {
-            translate([0, 0, -CLEARANCE]) union()
+            union()
             {
-                cylinder(h=2 + CLEARANCE, d=20.4);
-                translate([0, 0, 2 + CLEARANCE]) cylinder(h=7, d=23);
-                translate([0, 0, 9 + CLEARANCE]) cylinder(h=2 + CLEARANCE, d=20.4);
+                cylinder(h=(BODY_Z - BEARING_H) / 2, d=BEARING_D - 2.2);
+                translate([0, 0, (BODY_Z - BEARING_H) / 2]) cylinder(h=BEARING_H, d=BEARING_D);
+                translate([0, 0, (BODY_Z - BEARING_H) / 2 + BEARING_H]) cylinder(h=(BODY_Z - BEARING_H) / 2, d=BEARING_D - 2.2);
             }
         }
 
