@@ -1,7 +1,5 @@
 $fn=64;
 
-CLEARANCE=0.1;
-
 difference()
 {
     union()
@@ -28,24 +26,21 @@ difference()
 
     union()
     {
-        translate([0, 0, -CLEARANCE])
+        union()
         {
-            union()
+            cylinder(d = 11.1, h = 7);
+            translate([0, 0, 7]) linear_extrude(height=3, scale=[0.001, 0.001])
             {
-                cylinder(d = 11.1, h = (7 + CLEARANCE));
-                translate([0, 0, 7 + CLEARANCE]) linear_extrude(height=3, scale=[0.001, 0.001])
-                {
-                    circle(d = 10);
-                }
+                circle(d = 10);
             }
         }
 
-        translate([0, 0, 80 + CLEARANCE]) rotate([0, 180, 0])
+        translate([0, 0, 80 - 7]) rotate([0, 0, 0])
         {
             union()
             {
-                cylinder(d = 11.1, h = (7 + CLEARANCE));
-                translate([0, 0, 7 + CLEARANCE]) linear_extrude(height=3, scale=[0.001, 0.001])
+                cylinder(d = 11.1, h = 7);
+                rotate([0, 180, 0]) linear_extrude(height=3, scale=[0.001, 0.001])
                 {
                     circle(d = 10);
                 }
